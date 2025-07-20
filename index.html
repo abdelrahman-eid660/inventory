@@ -17,8 +17,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form">
-                            <select id="category_product" class="col-md-12 form-control">
+                        <div class="form ">
+                            <select id="category_product" class="col-md-12 form-control important">
                                 <option selected disabled hidden>اختر من القائمة</option>
                                 <option>مجمدات</option>
                                 <option>جبن</option>
@@ -28,13 +28,14 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form">
+                        <div class="form ">
                             <input type="text" id="name_product"
-                                placeholder="اسم المنتج" class="form-control">
+                                placeholder="اسم المنتج" class="form-control important">
                         </div>
+                        <p>Please Fill in the field</p>
                     </div>
                     <div class="col-md-6">
-                        <div class="form calc">
+                        <div class="form calc ">
                             <input type="text" id="number_product"
                                 placeholder=" العدد" value="1" class="form-control">
                         </div>
@@ -52,7 +53,7 @@
                     <div class="col-md-4">
                         <div class="form-floating calc">
                             <input type="text" id="net_cost" placeholder="صافي التكلفة" readonly
-                                class="form-control">
+                                class="form-control ">
                                 <label for="net_cost">صافي التكلفة</label>
                         </div>
                     </div>
@@ -71,22 +72,23 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-floating calc">
-                            <input type="text" id="net_sales"
+                        <div class="form-floating calc ">
+                            <input type="text" id="net_sales" 
                                 placeholder="اجمالي سعرالبيع" readonly
-                                class="form-control">
+                                class="form-control important ">
                                 <label for="net_sales">اجمالي سعرالبيع</label>
+                                <p>Please Fill in the field</p>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-floating calc">
+                        <div class="form-floating calc ">
                             <input type="text" id="tax" placeholder=" الضريبة%"
-                                class="form-control">
+                                class="form-control ">
                                 <label for="tax">%الضريبة</label>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-floating calc">
+                        <div class="form-floating calc ">
                             <input type="text" id="price"
                                 placeholder=" سعرالبيع" class="form-control">
                                 <label for="price">سعر البيع</label>
@@ -95,7 +97,7 @@
                     <div class="col-md-12">
                         <div class="form-floating calc">
                             <input type="text" id="net_profit"
-                            placeholder=" :صافي الربح" readonly class="form-control">
+                            placeholder=" :صافي الربح" readonly class="form-control ">
                             <label for="net_profit">صافي الربح</label>
                         </div>
                     </div>
@@ -126,23 +128,23 @@
         <div class="alert_message alert alert-danger">
             <h6 class="text-center">المخزون فارغ</h6>
         </div>
-
-        <div>
-                <table id="table" class="table table-striped-columns table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">image</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Count</th>
-                        <th scope="col" colspan="2">View</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody"></tbody>
-            </table>
-            </div>
+        <div class="container table-responsive">
+            <table id="table" class="table table-striped-columns table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Count</th>
+                    <th scope="col" colspan="2">View</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+        </div>
+            
 
         <script src="./js/main.js"></script>
     </body>

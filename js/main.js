@@ -1,7 +1,9 @@
 let showInventoryBtn = document.querySelector(".showInventory")
+let p = document.querySelectorAll("p")
 let curdProduct = document.querySelector(".curd-product")
 let all_inputs = document.querySelectorAll(".row input")
 let allCalcInputs = document.querySelectorAll(".calc input")
+let importantInputs = document.querySelectorAll(".important")
 let name_product =document.getElementById("name_product")
 let category_product =document.getElementById("category_product")
 let number_product =document.getElementById("number_product")
@@ -17,10 +19,8 @@ let btn_Add_product = document.getElementById("add_product")
 let btn_clear_product = document.getElementById("clear_product")
 let search = document.getElementById("search")
 let alert_message = document.querySelector(".alert_message")
-
 let table = document.getElementById('table')
 let tbody = document.getElementById('tbody')
-
 //====================== local sotrage =====================================
 let editIndex = null
 let products;
@@ -31,7 +31,7 @@ if(localStorage.data != null){
 else{
     products = []
 }
-//====================== check =======================================
+//====================== check LocalStorage =================================
 function check(){
     if(tbody.childElementCount == 0 && localStorage.data == null || products ==""){
         alert_message.classList.remove("none")
@@ -43,23 +43,30 @@ function check(){
     }
 }
 check()
-//====================== checkInputs =======================================
-function checkInputs() {
-    let hasText = false;
-    
-    allCalcInputs.forEach((i) => {
-        let oldMsg = i.nextElementSibling;
-        if (oldMsg && oldMsg.classList.contains("text-danger")) {
-        oldMsg.remove();
+//====================== checkImportant Inputs =============================
+function check_Important_Inputs(){
+    let value  = false
+        if(name_product.value.trim() === "" || net_sales_product.value.trim() === "" ){
+            value = true
+            p[0].classList.add("display")
+            p[1].classList.add("display")
         }
+        else{
+            p[0].classList.remove("display")
+            p[1].classList.remove("display")
+        }
+    
+    return value
+}
+//====================== checkCalcInputs =======================================
+function checkCalcInputs() {
+    let hasText = false;
+    allCalcInputs.forEach((i) => {
         if (isNaN(i.value)) {
-            let p = document.createElement("p")
-            p.textContent = "only Number's"
-            p.classList.add("text-danger")
-            i.after(p)
-            hasText = true;
             i.classList.add("border-danger");
-        } else {
+            hasText = true
+        }
+        else {
             i.classList.remove("border-danger");
         }
     });
@@ -67,6 +74,7 @@ function checkInputs() {
 }
 //===================== createData ===========================================
 function createData(){
+    if(check_Important_Inputs())return;
     btn_Add_product.innerHTML = `اضافة المنتج`
     let createProducts = {
         name : name_product.value,
@@ -82,11 +90,12 @@ function createData(){
         netProfitProduct : net_profit_product.value,
     }
     if(editIndex !== null){
-    products[editIndex] = createProducts;
-    editIndex = null;
-    btn_Add_product.innerHTML = `اضافة المنتج`;
+        products[editIndex] = createProducts;
+        editIndex = null;
+        btn_Add_product.innerHTML = `اضافة المنتج`;
     }else {
-    products.push(createProducts);
+        
+        products.push(createProducts);
     }
     localStorage.setItem("data",JSON.stringify(products))
     curdProduct.style.display = "none"
@@ -97,7 +106,7 @@ function createData(){
 //====================== calc =================================================
 function calcNetProfit(){
     // Net Cost
-    if(checkInputs())return;
+    if(checkCalcInputs())return;
     function netCost(){
         let costProduct = cost_product.value;
         let discount = discount_product.value;
@@ -110,6 +119,7 @@ function calcNetProfit(){
         let tax = +tax_product.value;
         let totalPrice = price + (price * (tax / 100));
         net_sales_product.value = totalPrice * +number_product.value;
+        check_Important_Inputs()
     }
     // Net Profit
     function netProfit(){
@@ -128,21 +138,20 @@ function calcNetProfit(){
 allCalcInputs.forEach((input) => {
     input.addEventListener("keyup", calcNetProfit);
 });
-
 //====================== showData =============================================
 function showData(product = products){
     tbody.innerHTML =""
     product.forEach((i,index)=>{
         tbody.innerHTML +=`
         <tr>
-        <td>${index + 1}</td>
-        <td>${i.name}</td>
-        <td>${i.category}</td>
-        <td><img src="${i.image}" style="max-width:55px"></td>
-        <td>${i.netSales}</td>
-        <td>${i.number}</td>
-        <td><span><i class="fa-solid fa-pen-to-square text-info edit" data-index="${index}"></i></span></td>
-        <td><span><i class="fa-solid fa-trash-can text-danger delete" data-index="${index}"></i></span></td>
+        <td data-label="ID">${index + 1}</td>
+        <td data-label="Name">${i.name}</td>
+        <td data-label="Category">${i.category}</td>
+        <td data-label="Image"><img src="${i.image}" onerror="this.src='images/Group-Project-2.jpg'" style="max-width:55px"></td>
+        <td data-label="Price">${i.netSales / i.number}</td>
+        <td data-label="Count">${i.number}</td>
+        <td data-label="Edit"><span><i class="fa-solid fa-pen-to-square text-info edit" data-index="${index}"></i></span></td>
+        <td data-label="Delete"><span><i class="fa-solid fa-trash-can text-danger delete" data-index="${index}"></i></span></td>
         </tr>
         `
         check()
@@ -151,14 +160,14 @@ function showData(product = products){
 //==================== showInventory ==============================
 let inventory = "show"
 function showInventory(){
-    if(inventory == "hidden" || curdProduct.style.display != "block"){
+    if(inventory == "hidden" || curdProduct.classList.contains("none")){
         showInventoryBtn.innerHTML = `اخفاء`
-        curdProduct.style.display = "block"
+        curdProduct.classList.remove("none")
         inventory = "show"
     }
     else{
         showInventoryBtn.innerHTML = `اضافة`
-        curdProduct.style.display = "none"
+        curdProduct.classList.add("none")
         inventory = "hidden"
     }
 }
@@ -196,6 +205,9 @@ document.addEventListener("click",(e)=>{
 //=================== edit ===========================================
 document.addEventListener("click",(e)=>{
     if(e.target.classList.contains("edit")){
+        curdProduct.classList.toggle("none")
+        showInventoryBtn.innerHTML = "اخفاء"
+        inventory = "show"
         let row = e.target.dataset.index
         name_product.value = products[row].name;
         category_product.value = products[row].category;
@@ -211,3 +223,4 @@ document.addEventListener("click",(e)=>{
         editIndex = row;       
     }
 })
+//=====================================================================
