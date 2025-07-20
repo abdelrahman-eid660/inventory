@@ -1,0 +1,67 @@
+body{
+    background-image: url(../images/Group-Project-2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+}.show{
+    display: flex;
+}
+.showInventory{
+    width: 70px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: yellow;
+    border: none;
+    color: rgb(96, 4, 96);
+    margin: 10px auto;
+}
+.curd-product{
+    background: rgba(0,0,0,0.5);
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px;
+    color: aqua;
+}
+.form-floating{
+    margin: 10px 0;
+    direction: ltr;
+}
+.form{
+    margin: 10px 0;
+    direction: rtl;
+}
+.inventory{
+    width: 50%;
+    margin: 10px auto;
+}
+.none{
+    display: none;
+}
+span{
+    cursor: pointer;
+}
+.alert_message{
+    width: 50%;
+    margin: 10px auto;
+}
+.display{
+        display: block;
+}
+#tbody{
+    text-align: center;
+    vertical-align: middle;
+}
+#thead{
+    text-align: center;
+    vertical-align: middle;
+}
+.profit{
+    background-color: rgb(11, 240, 99);
+}
+@media (max-width:768px) {
+    .curd-product{
+        display: none;
+    }
+}
