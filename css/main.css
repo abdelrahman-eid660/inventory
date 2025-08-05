@@ -79,37 +79,62 @@ p{
     position: inherit;
     transform: translateX(50%);
 }
-  thead {
+thead {
     display: none;
-  }
+}
 
-  #table,
-  #table tbody,
-  #table tr,
-  #table td {
+#table,
+#table tbody,
+#table tr,
+#table td {
     display: block;
     width: 100%;
-  }
-
-  #table tr {
+}
+#table tr {
     margin-bottom: 15px;
     border: 1px solid #ccc;
     padding: 10px;
     background: #fff;
     border-radius: 10px;
-  }
-
-  #table td {
+}
+#table td {
     text-align: right;
     padding: 5px 10px;
     position: relative;
-  }
-
-  #table td::before {
+}
+#table td::before {
     content: attr(data-label);
     font-weight: bold;
     position: absolute;
     left: 10px;
     color: #555;
-  }
+}
+}
+.modal{
+    display: block !important;
+    color: white;
+}
+.modal-header{
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+}
+.modal-header i{
+font-size: 20px;
+cursor: pointer;
+}
+.modal-body{
+    background-color: #333;
+    color: white;
+}
+.modal-footer{
+    background-color: black;
+    color: white;
+}
+.layout{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0;
 }

@@ -9,41 +9,45 @@
         <title>Curd Product</title>
     </head>
     <body>
-        <div class="show">
+        <div class="show mt-3">
 
             <button class="showInventory">اضافة</button>
         </div>
-        <div class="curd-product">
+        <div class="curd-product mt-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form ">
-                            <select id="category_product" class="col-md-12 form-control important">
-                                <option selected disabled hidden>اختر من القائمة</option>
-                                <option>مجمدات</option>
-                                <option>جبن</option>
-                                <option>البان</option>
-                                <option>معلبات</option>
+                            <select id="category_product"
+                                class="col-md-12 form-control important">
+                                <option value selected hidden>اختر من
+                                    القائمة</option>
+                                <option value="مجمدات">مجمدات</option>
+                                <option value="جبن">جبن</option>
+                                <option value="البان">البان</option>
+                                <option value="معلبات">معلبات</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form ">
                             <input type="text" id="name_product"
-                                placeholder="اسم المنتج" class="form-control important">
+                                placeholder="اسم المنتج"
+                                class="form-control important">
                         </div>
-                        <p>Please Fill in the field</p>
+
                     </div>
                     <div class="col-md-6">
                         <div class="form calc ">
                             <input type="text" id="number_product"
-                                placeholder=" العدد" value="1" class="form-control">
+                                placeholder=" العدد" value="1"
+                                class="form-control">
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form">
                             <input type="text" id="image_product"
-                                placeholder="صور المنتج" class="form-control">
+                                placeholder="صورة المنتج" class="form-control">
                         </div>
                     </div>
                     <hr>
@@ -52,52 +56,54 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating calc">
-                            <input type="text" id="net_cost" placeholder="صافي التكلفة" readonly
-                                class="form-control ">
-                                <label for="net_cost">صافي التكلفة</label>
+                            <input type="text" id="net_cost"
+                                placeholder="صافي التكلفة" readonly
+                                class="form-control important ">
+                            <label for="net_cost">صافي التكلفة</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating calc">
                             <input type="text" id="discount_product"
                                 placeholder=" الخصم%" class="form-control">
-                                <label for="discount_product">%خصم مشتريات</label>
+                            <label for="discount_product">%خصم مشتريات</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating calc">
                             <input type="text" id="cost_product"
                                 placeholder=" تكلفةالمنتج" class="form-control">
-                                <label for="cost_product">تكلفة مشتريات</label>
+                            <label for="cost_product">تكلفة مشتريات</label>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-floating calc ">
-                            <input type="text" id="net_sales" 
+                        <div class="form-floating calc">
+                            <input type="text" id="net_sales"
                                 placeholder="اجمالي سعرالبيع" readonly
                                 class="form-control important ">
-                                <label for="net_sales">اجمالي سعرالبيع</label>
-                                <p>Please Fill in the field</p>
+                            <label for="net_sales">اجمالي سعرالبيع</label>
+
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating calc ">
                             <input type="text" id="tax" placeholder=" الضريبة%"
                                 class="form-control ">
-                                <label for="tax">%الضريبة</label>
+                            <label for="tax">%الضريبة</label>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-floating calc ">
                             <input type="text" id="price"
                                 placeholder=" سعرالبيع" class="form-control">
-                                <label for="price">سعر البيع</label>
+                            <label for="price">سعر البيع</label>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-floating calc">
                             <input type="text" id="net_profit"
-                            placeholder=" :صافي الربح" readonly class="form-control ">
+                                placeholder=" :صافي الربح" readonly
+                                class="form-control ">
                             <label for="net_profit">صافي الربح</label>
                         </div>
                     </div>
@@ -105,19 +111,20 @@
                     <div class="col-md-6">
                         <div class="form">
                             <button id="clear_product"
-                                class="btn btn-secondary col-md-12">افراغ الحقول
-                                </button>
+                                class="btn btn-secondary w-100">افراغ الحقول
+                            </button>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form">
-                            <input type="text" class="form-control bg-info" placeholder="بحث" id="search">
+                            <input type="text" class="form-control bg-info"
+                                placeholder="بحث" id="search">
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form">
                             <button id="add_product"
-                                class="btn btn-success col-md-12">اضافة
+                                class="btn btn-success w-100">اضافة
                                 المنتج</button>
                         </div>
                     </div>
@@ -130,21 +137,41 @@
         </div>
         <div class="container table-responsive">
             <table id="table" class="table table-striped-columns table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">image</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Count</th>
-                    <th scope="col" colspan="2">View</th>
-                </tr>
-            </thead>
-            <tbody id="tbody"></tbody>
-        </table>
+                <thead class="text-center">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">image</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Count</th>
+                        <th scope="col" colspan="3">View</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+            </table>
         </div>
-            
+        <div class="layout none">
+            <!-- <div class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Product</h3>
+                            <i class="fa-solid fa-close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <p>Lorem, ipsum dolor sit amet consectetur</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
 
         <script src="./js/main.js"></script>
     </body>

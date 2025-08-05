@@ -1,5 +1,4 @@
 let showInventoryBtn = document.querySelector(".showInventory")
-let p = document.querySelectorAll("p")
 let curdProduct = document.querySelector(".curd-product")
 let all_inputs = document.querySelectorAll(".row input")
 let allCalcInputs = document.querySelectorAll(".calc input")
@@ -21,6 +20,8 @@ let search = document.getElementById("search")
 let alert_message = document.querySelector(".alert_message")
 let table = document.getElementById('table')
 let tbody = document.getElementById('tbody')
+let body = document.body
+let layout = document.querySelector(".layout")
 //====================== local sotrage =====================================
 let editIndex = null
 let products;
@@ -44,20 +45,31 @@ function check(){
 }
 check()
 //====================== checkImportant Inputs =============================
-function check_Important_Inputs(){
-    let value  = false
-        if(name_product.value.trim() === "" || net_sales_product.value.trim() === "" ){
-            value = true
-            p[0].classList.add("display")
-            p[1].classList.add("display")
+function validateInputs(){
+    let isvalid  = true
+    importantInputs.forEach(input =>{
+        if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-msg")) {
+            input.nextElementSibling.remove();
         }
-        else{
-            p[0].classList.remove("display")
-            p[1].classList.remove("display")
+        if(input.value.trim() ===""){
+            isvalid = false;
+            let error = document.createElement("span");
+            error.classList.add("error-msg");
+            error.textContent = "مطلوب";
+            error.style.color = "red";
+            error.style.fontSize = "12px";
+            input.after(error);
         }
-    
-    return value
+    })
+    return isvalid
 }
+importantInputs.forEach(input =>{
+    input.addEventListener("input",()=>{
+        if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-msg")) {
+            input.nextElementSibling.remove();
+        }
+    })
+})
 //====================== checkCalcInputs =======================================
 function checkCalcInputs() {
     let hasText = false;
@@ -74,7 +86,7 @@ function checkCalcInputs() {
 }
 //===================== createData ===========================================
 function createData(){
-    if(check_Important_Inputs())return;
+    if(!validateInputs())return;
     btn_Add_product.innerHTML = `اضافة المنتج`
     let createProducts = {
         name : name_product.value,
@@ -94,11 +106,9 @@ function createData(){
         editIndex = null;
         btn_Add_product.innerHTML = `اضافة المنتج`;
     }else {
-        
         products.push(createProducts);
     }
     localStorage.setItem("data",JSON.stringify(products))
-    curdProduct.style.display = "none"
     showInventory()
     showData()
     clear()
@@ -119,7 +129,6 @@ function calcNetProfit(){
         let tax = +tax_product.value;
         let totalPrice = price + (price * (tax / 100));
         net_sales_product.value = totalPrice * +number_product.value;
-        check_Important_Inputs()
     }
     // Net Profit
     function netProfit(){
@@ -150,6 +159,7 @@ function showData(product = products){
         <td data-label="Image"><img src="${i.image}" onerror="this.src='images/Group-Project-2.jpg'" style="max-width:55px"></td>
         <td data-label="Price">${i.netSales / i.number}</td>
         <td data-label="Count">${i.number}</td>
+        <td data-label="Eye"><span><i onclick="show_model_data(${index})" class="fa-solid fa-eye Eye" style="color: #82f263"></i></span></td>
         <td data-label="Edit"><span><i class="fa-solid fa-pen-to-square text-info edit" data-index="${index}"></i></span></td>
         <td data-label="Delete"><span><i class="fa-solid fa-trash-can text-danger delete" data-index="${index}"></i></span></td>
         </tr>
@@ -160,7 +170,7 @@ function showData(product = products){
 //==================== showInventory ==============================
 let inventory = "show"
 function showInventory(){
-    if(inventory == "hidden" || curdProduct.classList.contains("none")){
+    if(inventory == "hidden"){
         showInventoryBtn.innerHTML = `اخفاء`
         curdProduct.classList.remove("none")
         inventory = "show"
@@ -193,7 +203,7 @@ btn_clear_product.addEventListener("click",clear)
 //==================== add ==========================================
 btn_Add_product.addEventListener("click",createData)
 //==================== delete =======================================
-document.addEventListener("click",(e)=>{
+tbody.addEventListener("click",(e)=>{
     if(e.target.classList.contains("delete")){
         let row = e.target.dataset.index
         products.splice(row,1);
@@ -202,10 +212,48 @@ document.addEventListener("click",(e)=>{
         check()
     }
 })
+//=================== ShowDetils ============================================
+let show_model_data = (index)=>{
+    layout.classList.remove("none")
+    layout.innerHTML = `
+    <div class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">${products[index].name}</h3>
+                            <i onclick="close_model_data()" class="fa-solid fa-close"></i>
+                        </div>
+                        <div class="modal-body">
+                            <img src="${products[index].image}" width="120">
+                            <hr>
+                            <h5>اسم المنتج : ${products[index].name}</h5>
+                            <h5>نوع المنتج : ${products[index].category}</h5>
+                            <h5>العدد : ${products[index].number}</h5>
+                            <h5>تكلفة المنتج : ${products[index].costProduct}</h5>
+                            <h5>خصم الشراء : %${products[index].discount}</h5>
+                            <h5> صافي التكلفة: ${products[index].netCostProduct}</h5>
+                            <h5>سعر المنتج : ${products[index].price}</h5>
+                            <h5>الضريبة علي المنتج : %${products[index].tax}</h5>
+                            <h5>اجمالي سعر البيع : ${products[index].netSales}</h5>
+                            <h5>صافي الربح : ${products[index].netProfitProduct}</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" onclick="close_model_data()" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+    `
+}
+let close_model_data = ()=>{
+    layout.classList.add("none")
+    layout.innerHTML="";
+}
 //=================== edit ===========================================
-document.addEventListener("click",(e)=>{
+tbody.addEventListener("click",(e)=>{
     if(e.target.classList.contains("edit")){
-        curdProduct.classList.toggle("none")
+        curdProduct.classList.remove("none")
         showInventoryBtn.innerHTML = "اخفاء"
         inventory = "show"
         let row = e.target.dataset.index
