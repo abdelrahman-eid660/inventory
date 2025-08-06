@@ -51,7 +51,7 @@ function validateInputs(){
         if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-msg")) {
             input.nextElementSibling.remove();
         }
-        if(input.value.trim() ===""){
+        if(input.value.trim() ==="" || +input.value <=0){
             isvalid = false;
             let error = document.createElement("span");
             error.classList.add("error-msg");
@@ -143,6 +143,7 @@ function calcNetProfit(){
     netCost()
     netPrice()
     netProfit()
+    validateInputs()
 }
 allCalcInputs.forEach((input) => {
     input.addEventListener("keyup", calcNetProfit);
